@@ -185,16 +185,16 @@
 				
 				function exibeMensagemErro( erros )
 				{		
-					var ulErros = document.querySelector("#lista-erros");
+					var ulErros = document.querySelector( "#lista-erros" );
 					
-					for( i = 0; i< erros.length; i++ )
+					erros.forEach( function( erro )
 					{
 						li = document.createElement( "li" );
-							
-						li.textContent = erros[i];
-							
+						
+						li.textContent = erro;
+													
 						li.style.color = "red";
 							
 						ulErros.appendChild( li );
-					}
+					})
 				}
