@@ -65,18 +65,34 @@
 					*/
 					var paciente = getPaciente( form );
 					
+					/*
+					* Validação
+					*/					
+					var erros = validaPaciente( paciente );
+					
+					if( erros.length > 0 )
+					{
+						exibeMensagemErro( erros );
+						
+					    return;
+					}
+					
 					pacienteTr = montaTR( paciente ); 
 					
 					//Adicionando a tabela no TBody
 					tbPacientes.appendChild( pacienteTr );
 
 				});
+			
 				
 				
 				//============================================================================//
 				//                          Funções*	     			        			  //
 				//============================================================================//
 				
+				/*
+				* Calcula o IMC
+				*/
 				function calculaIMC( peso, altura )
 				{
 					return peso/(altura*altura);
@@ -100,6 +116,9 @@
 					return paciente;
 				}
 				
+				/*
+				* Monta a TR
+				*/
 				function montaTR( paciente )
 				{
 					var pacienteTr = document.createElement("tr"); //criando uma TR
@@ -132,3 +151,50 @@
 					return pacienteTr;
 				}
 				
+				/*
+				* Valida os pacientes
+				*/
+				function validaPaciente( paciente ) 
+				{
+					var erros = [];
+					
+					if( !validaPeso( paciente.peso ) )
+						erros.push("Peso Inválido!" );
+					
+					if( !validaAltura( paciente.altura ) )
+					    erros.push( "Altura Inválida!" );
+					
+					return erros;
+				}
+				
+				function validaPeso( peso ) 
+				{
+					if( peso >= 0 && peso < 1000 )
+						return true;
+					else
+						return false;
+				}
+				
+				function validaAltura( altura )
+				{
+					if( altura >= 0 && altura <= 3.0 )
+						return true;
+					else
+						return false;
+				}
+				
+				function exibeMensagemErro( erros )
+				{		
+					var ulErros = document.querySelector("#lista-erros");
+					
+					for( i = 0; i< erros.length; i++ )
+					{
+						li = document.createElement( "li" );
+							
+						li.textContent = erros[i];
+							
+						li.style.color = "red";
+							
+						ulErros.appendChild( li );
+					}
+				}
