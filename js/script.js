@@ -61,13 +61,47 @@
 					var tbPacientes = document.querySelector("#tabela-pacientes");
 					
 					/*
-					* Obtendo valores do form através do name.
+					* Populando objeto paciente.
 					*/
-					var nome         = form.nome.value;
-					var peso         = form.peso.value;
-					var altura       = form.altura.value;
-					var gordCorporal = form.gordura.value;
+					var paciente = getPaciente( form );
 					
+					pacienteTr = montaTR( paciente ); 
+					
+					//Adicionando a tabela no TBody
+					tbPacientes.appendChild( pacienteTr );
+
+				});
+				
+				
+				//============================================================================//
+				//                          Funções*	     			        			  //
+				//============================================================================//
+				
+				function calculaIMC( peso, altura )
+				{
+					return peso/(altura*altura);
+				}
+									
+				/*
+				* Obtendo valores do form através do name.
+				*/
+				function getPaciente( form )
+				{
+
+					var paciente = {
+						
+						nome:         form.nome.value,
+						peso:         form.peso.value,
+						altura:       form.altura.value,
+						gordCorporal: form.gordura.value,
+						imc:          calculaIMC(form.peso.value, form.altura.value)
+					}
+					
+					return paciente;
+				}
+				
+				function montaTR( paciente )
+				{
 					var pacienteTr = document.createElement("tr"); //criando uma TR
 						
 					var nomeTd         = document.createElement("td"); //criando uma TD
@@ -76,11 +110,11 @@
 					var gordCorporalTd = document.createElement("td"); //criando uma TD
 					var imcTd          = document.createElement("td"); //criando uma TD
 				
-					nomeTd.textContent         = nome;
-					pesoTd.textContent         = peso;
-					alturaTd.textContent       = altura;
-					gordCorporalTd.textContent = gordCorporal;
-					imcTd.textContent          = calculaIMC( peso, altura );
+					nomeTd.textContent         = paciente.nome;
+					pesoTd.textContent         = paciente.peso;
+					alturaTd.textContent       = paciente.altura;
+					gordCorporalTd.textContent = paciente.gordCorporal;
+					imcTd.textContent          = paciente.imc;
 					
 					/**
 					* appendChild adiciona elementos filhos( no caso, adicionando as TD's na TR)
@@ -95,12 +129,6 @@
 					pacienteTr.classList.add("paciente-letra");
 					pacienteTr.style.background = "lightcoral";
 					
-					//Adicionando a tabela no TBody
-					tbPacientes.appendChild( pacienteTr );
-
-				});
-				
-				function calculaIMC( peso, altura )
-				{
-					return peso/(altura*altura);
+					return pacienteTr;
 				}
+				
