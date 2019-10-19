@@ -40,7 +40,7 @@
 
 				    var imc = pacientes[i].querySelector(".info-imc");		
 					
-					var imcValue = peso/(altura*altura);
+					var imcValue = calculaIMC(peso,altura);
 					
 					imc.textContent = imcValue.toFixed(2);
 				}
@@ -80,6 +80,7 @@
 					pesoTd.textContent         = peso;
 					alturaTd.textContent       = altura;
 					gordCorporalTd.textContent = gordCorporal;
+					imcTd.textContent          = calculaIMC( peso, altura );
 					
 					/**
 					* appendChild adiciona elementos filhos( no caso, adicionando as TD's na TR)
@@ -98,3 +99,8 @@
 					tbPacientes.appendChild( pacienteTr );
 
 				});
+				
+				function calculaIMC( peso, altura )
+				{
+					return peso/(altura*altura);
+				}
