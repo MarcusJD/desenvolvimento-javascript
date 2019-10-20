@@ -81,6 +81,12 @@
 					
 					//Adicionando a tabela no TBody
 					tbPacientes.appendChild( pacienteTr );
+					
+					var ulErros = document.querySelector( "#lista-erros" );
+					
+					ulErros.innerHTML = ""; // "Zerar" a ul para adicionar a validação atualizada.
+					
+					form.reset();
 
 				});
 			
