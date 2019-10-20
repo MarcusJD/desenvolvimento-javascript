@@ -85,9 +85,8 @@
 				});
 			
 				
-				
 				//============================================================================//
-				//                          Funções*	     			        			  //
+				//                          *Funções*	     			        			  //
 				//============================================================================//
 				
 				/*
@@ -159,13 +158,24 @@
 					var erros = [];
 					
 					if( !validaPeso( paciente.peso ) )
-						erros.push("Peso Inválido!" );
+						erros.push( "Peso Inválido!" );
 					
 					if( !validaAltura( paciente.altura ) )
 					    erros.push( "Altura Inválida!" );
 					
+					if( !validaNome( paciente.nome ) )
+					    erros.push( "O nome do paciente não pode ficar em branco!" );
+					
 					return erros;
 				}
+				
+				function validaNome( nome )
+				{
+					if( nome.length != 0 )
+						return true;
+					else
+						return false;
+				}				
 				
 				function validaPeso( peso ) 
 				{
@@ -186,6 +196,8 @@
 				function exibeMensagemErro( erros )
 				{		
 					var ulErros = document.querySelector( "#lista-erros" );
+					
+					ulErros.innerHTML = ""; // "Zerar" a ul para adicionar a validação atualizada.
 					
 					erros.forEach( function( erro )
 					{
